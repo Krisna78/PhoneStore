@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('bank_details', function (Blueprint $table) {
+            $table->bigIncrements("id_bank_detail");
+            $table->string("bank_name");
+            $table->string("account_number");
+            $table->string("name");
+            $table->bigIncrements('payment_id');
+            $table->foreign('payment_id')->references('id_payment')->on('payments')->onDelete('cascade');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('bank_details');
+    }
+};
